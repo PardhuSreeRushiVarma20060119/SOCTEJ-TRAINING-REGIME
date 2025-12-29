@@ -1,4 +1,4 @@
-# 📖 THE ANALYST'S BIBLE: TACTICAL FIELD MANUAL (v5.0 - THE FULL 500)
+# 📖 THE ANALYST'S BIBLE: TACTICAL FIELD MANUAL
 *The Definitive SOC Command Reference. No Fluff. Pure Syntax.*
 
 ---
