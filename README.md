@@ -69,7 +69,7 @@ To complete this regime, you are required to build the **"Sentinel Range"**:
 - **Monitor:** Ubuntu 22.04 LTS (running Splunk/ELK/Wazuh).
 - **Network:** Security Onion or pfSense.
 
-> *"The only difference between a novice and a master is that the master has failed more times than the novice has tried."*
+> *"The only difference between a **novice** and a **master** is that the master has failed more times than the novice has ever tried."*
 
 ---
-*(c) 2025 Pardhu Sree Rushi Varma | SOC Elite Training*
+*(C) 2025 Pardhu Sree Rushi Varma | SOC Elite Training For Tejaswini*
