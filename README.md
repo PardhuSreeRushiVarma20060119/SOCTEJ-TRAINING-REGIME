@@ -1,6 +1,6 @@
 # 🛡️ SOCTEJ: The 112-Day SOC Analyst Elite Training Regime
 
-![MITRE ATT&CK](https://img.shields.io/badge/Framework-MITRE%20ATT%26CK-red?style=for-the-badge) ![MITRE D3FEND](https://img.shields.io/badge/Framework-MITRE%20D3FEND-blue?style=for-the-badge) ![Status](https://img.shields.io/badge/Status-MISSION%20ACTIVE-green?style=for-the-badge)
+![MITRE ATT&CK](https://img.shields.io/badge/Framework-MITRE%20ATT%26CK-red?style=for-the-badge) ![MITRE D3FEND](https://img.shields.io/badge/Framework-MITRE%20D3FEND-blue?style=for-the-badge) ![Status](https://img.shields.io/badge/Status-MISSION%20ACTIVE-darkgreen?style=for-the-badge)
 
 Welcome to the **most intensive, practical, and framework-aligned SOC training program** publicly available. This repository contains a structured **112-Day (16-Week)** curriculum designed to transition a candidate from zero knowledge to a **Tier-3 SOC Threat Hunter & Engineer**.
 
