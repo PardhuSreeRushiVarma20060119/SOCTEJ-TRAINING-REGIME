@@ -21,4 +21,7 @@ This directory contains the **Master Structure** for the 112-Day SOC Elite Train
 - **`SOC_Training_Program.md`**: The detailed curriculum.
 - **`ENTERPRISE_HARDENING.md`**: Baseline configs for the lab range.
 
-> *"Practice like you fight."*
+> *"Practice like you fight for your time."*
+
+---
+*(C) 2025 Pardhu Sree Rushi Varma | SOC Elite Training For Tejaswini*
