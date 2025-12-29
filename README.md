@@ -12,8 +12,8 @@ The training is built on a **"Dual-Framework"** philosophy:
 2.  **Defense:** Every countermeasure is mapped to **MITRE D3FEND™** Artifacts (DIDs) to engineer the solution.
 
 ### 📚 Master Documentation
-- **[📜 112-Day Master PDF Corpus](SOC_ELITE_112_DAY_TRAINING_CORPUS.pdf)**: The complete, offline-ready manual containing every lab, command, and theory lesson.
-- **[📊 Master Task Table (DOCX)](SOC_112_DAY_MASTER_CONSOLIDATED_TABLE.docx)**: A consolidated view of all 112 days, objectives, and mappings in a professional table format.
+- **[📜 112-Day Master PDF Corpus](TRAINING%20REGIME/MISC/SOC_ELITE_112_DAY_TRAINING_CORPUS.pdf)**: The complete, offline-ready manual containing every lab, command, and theory lesson.
+- **[📊 Master Task Table (DOCX)](TRAINING%20REGIME/MISC/SOC_112_DAY_MASTER_CONSOLIDATED_TABLE.docx)**: A consolidated view of all 112 days, objectives, and mappings in a professional table format.
 - **[📖 The Analyst's Bible](TRAINING%20REGIME/Docs%20(MITRE)/MitreATT&CK/ANALYSTS_BIBLE.md)**: A field manual of 500+ commands for Windows, Linux, and Network Forensics.
 
 ---
