@@ -1,4 +1,4 @@
-# 🛡️ SOCTEJ: The 112-Day SOC Analyst Elite Training Regime
+# 🛡️ SOCTEJ : The 112-Day SOC Analyst Training Regime
 
 ![MITRE ATT&CK](https://img.shields.io/badge/Framework-MITRE%20ATT%26CK-red?style=for-the-badge) ![MITRE D3FEND](https://img.shields.io/badge/Framework-MITRE%20D3FEND-blue?style=for-the-badge) ![Status](https://img.shields.io/badge/Status-MISSION%20ACTIVE-darkgreen?style=for-the-badge)
 
