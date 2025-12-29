@@ -1,0 +1,48 @@
+<Sysmon schemaversion="4.90">
+  <HashAlgorithms>*</HashAlgorithms>
+  <CheckRevocation/>
+  <EventFiltering>
+    <!-- Event ID 1: Process Creation -->
+    <RuleGroup name="Process Creation" groupRelation="or">
+      <ProcessCreate onmatch="include">
+        <CommandLine condition="contains">powershell.exe -Enc</CommandLine>
+        <CommandLine condition="contains">whoami</CommandLine>
+        <CommandLine condition="contains">net user</CommandLine>
+        <CommandLine condition="contains">tasklist</CommandLine>
+        <CommandLine condition="contains">mimikatz</CommandLine>
+        <CommandLine condition="contains">psexec</CommandLine>
+        <CommandLine condition="contains">certutil.exe -urlcache</CommandLine>
+        <Image condition="begin with">C:\Users\Public</Image>
+        <Image condition="contains">cmd.exe</Image>
+      </ProcessCreate>
+    </RuleGroup>
+
+    <!-- Event ID 3: Network Connection -->
+    <RuleGroup name="Network Connection" groupRelation="or">
+      <NetworkConnect onmatch="include">
+        <DestinationPort condition="is">4444</DestinationPort>
+        <DestinationPort condition="is">8080</DestinationPort>
+        <DestinationPort condition="is">1337</DestinationPort>
+        <Image condition="end with">powershell.exe</Image>
+        <Image condition="end with">cmd.exe</Image>
+      </NetworkConnect>
+    </RuleGroup>
+
+    <!-- Event ID 11: FileCreate -->
+    <RuleGroup name="File Creation" groupRelation="or">
+      <FileCreate onmatch="include">
+        <TargetFilename condition="end with">.exe</TargetFilename>
+        <TargetFilename condition="end with">.ps1</TargetFilename>
+        <TargetFilename condition="contains">Startup</TargetFilename>
+      </FileCreate>
+    </RuleGroup>
+
+    <!-- Event ID 13: RegistryEvent (Value Set) -->
+    <RuleGroup name="Registry Events" groupRelation="or">
+      <RegistryEvent onmatch="include">
+        <TargetObject condition="contains">CurrentVersion\Run</TargetObject>
+        <TargetObject condition="contains">CurrentVersion\RunOnce</TargetObject>
+      </RegistryEvent>
+    </RuleGroup>
+  </EventFiltering>
+</Sysmon>

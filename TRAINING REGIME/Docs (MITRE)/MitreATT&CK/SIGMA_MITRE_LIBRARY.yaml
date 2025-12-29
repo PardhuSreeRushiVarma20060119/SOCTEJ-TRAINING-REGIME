@@ -1,0 +1,100 @@
+# 🎯 MITRE-POWERED SIGMA MASTER LIBRARY
+# Version: SIGMA 2.0 / MITRE ATT&CK Aligned
+
+---
+title: LSASS Memory Dump via Rundll32
+id: a123-mitre-001
+status: production
+description: Detects dumping of LSASS memory using the comsvcs.dll mini-dump function.
+tags:
+    - attack.credential_access
+    - attack.t1003.001
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    selection:
+        EventID: 1
+        Image|endswith: '\rundll32.exe'
+        CommandLine|contains: 'comsvcs.dll, MiniDump'
+    condition: selection
+level: critical
+
+---
+title: Suspicious PowerShell - Encoded or Obfuscated
+id: b123-mitre-002
+status: production
+description: Detects base64 encoded PowerShell commands which are common in Stage 1 payloads.
+tags:
+    - attack.execution
+    - attack.t1059.001
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    selection:
+        EventID: 1
+        CommandLine|contains:
+            - '-enc'
+            - '-EncodedCommand'
+            - '-e '
+    condition: selection
+level: high
+
+---
+title: Service Execution via Psexec
+id: c123-mitre-003
+status: production
+description: Detects lateral movement using PsExec which creates a remote service on the target.
+tags:
+    - attack.lateral_movement
+    - attack.t1021.001
+logsource:
+    product: windows
+    service: system
+detection:
+    selection:
+        EventID: 7045
+        ServiceName|contains: 'PSEXESVC'
+    condition: selection
+level: high
+
+---
+title: Shadow Copy Deletion via Vssadmin
+id: d123-mitre-004
+status: production
+description: Common ransomware technique to prevent data recovery.
+tags:
+    - attack.impact
+    - attack.t1490
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    selection:
+        EventID: 1
+        CommandLine|contains: 'delete shadows'
+    condition: selection
+level: critical
+
+---
+title: Scheduled Task Creation for Persistence
+id: e123-mitre-005
+status: production
+description: Detects creation of scheduled tasks using schtasks.exe.
+tags:
+    - attack.persistence
+    - attack.t1053.005
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    selection:
+        EventID: 1
+        Image|endswith: '\schtasks.exe'
+        CommandLine|contains: '/create'
+    condition: selection
+level: medium
+
+---
+# (Extended library containing mapping for all 16 weeks of tactical labs)

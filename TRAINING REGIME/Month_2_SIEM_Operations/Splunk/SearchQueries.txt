@@ -1,0 +1,32 @@
+# Splunk Search Queries for SOC Training (Month 2)
+
+## 1. Windows Execution & Persistence
+# Detect Encoded PowerShell (T1059.001)
+index=windows sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode=1 
+| eval cmd_len=len(CommandLine)
+| where cmd_len > 100 AND (CommandLine LIKE "%-enc%" OR CommandLine LIKE "%-EncodedCommand%")
+| table _time, host, User, CommandLine
+
+# Detect Brute Force (Event ID 4625)
+index=windows sourcetype="WinEventLog:Security" EventCode=4625
+| stats count by TargetUserName, Source_Network_Address
+| where count > 10
+| sort - count
+
+## 2. Network Anomalies
+# Detect Beaconing Behavior (Firewall Logs)
+index=network sourcetype="paloalto:traffic" 
+| streamstats time_window=1m count as conn_count by src_ip, dest_ip
+| where conn_count > 50
+| table _time, src_ip, dest_ip, conn_count
+
+# Detect Large Data Exfiltration
+index=network sourcetype="pan:traffic" bytes_out > 10000000
+| stats sum(bytes_out) as total_bytes by src_ip, dest_ip
+| eval total_mb = round(total_bytes/1024/1024, 2)
+| sort - total_mb
+
+## 3. Lateral Movement
+# Detect Remote Service Creation (Event ID 7045)
+index=windows sourcetype="WinEventLog:System" EventCode=7045
+| table _time, host, Service_Name, Service_Type, Service_Start_Type

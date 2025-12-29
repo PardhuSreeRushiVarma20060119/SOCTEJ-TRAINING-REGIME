@@ -1,0 +1,13 @@
+# Suricata Custom Detection Rules for SOC Training
+
+# Detect Meterpreter Reverse Shell (Common port 4444)
+alert tcp $HOME_NET any -> $EXTERNAL_NET 4444 (msg:"ET TROJAN Meterpreter Reverse Shell Possible"; flow:established,to_server; content:"revmet"; classtype:trojan-activity; sid:1000001; rev:1;)
+
+# Detect PowerShell Download Cradles
+alert http $HOME_NET any -> $EXTERNAL_NET any (msg:"ET POLICY PowerShell Download Cradle (IWR/Net.WebClient)"; flow:established,to_server; content:"Net.WebClient"; http_client_body; classtype:policy-violation; sid:1000002; rev:1;)
+
+# Detect Potential DNS Tunneling (Large DNS Queries)
+alert udp $HOME_NET any -> any 53 (msg:"ET POLICY Potential DNS Tunneling Attempt (Long Query)"; content:"|01 00 00 01 00 00 00 00 00 00|"; offset:2; depth:10; dsize:>200; classtype:policy-violation; sid:1000003; rev:1;)
+
+# Detect SSH Brute Force (High frequency connection attempts)
+alert tcp $EXTERNAL_NET any -> $HOME_NET 22 (msg:"ET SCAN Potential SSH Brute Force"; flow:to_server; flags:S; threshold:type both, track by_src, count 5, seconds 60; classtype:attempted-recon; sid:1000004; rev:1;)

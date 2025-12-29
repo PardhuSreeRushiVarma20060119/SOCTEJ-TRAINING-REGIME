@@ -1,0 +1,23 @@
+// Azure Sentinel (KQL) Hunting Queries for Cloud SOC
+
+// 1. Detect Suspicious Role Assignment (Privilege Escalation)
+AzureActivity
+| where OperationNameValue == "Microsoft.Authorization/roleAssignments/write"
+| where ActivityStatusValue == "Success"
+| extend Principal = tostring(parse_json(tostring(parse_json(Properties).requestbody)).properties.principalId)
+| extend RoleDefinition = tostring(parse_json(tostring(parse_json(Properties).requestbody)).properties.roleDefinitionId)
+| project TimeGenerated, Caller, Principal, RoleDefinition, ResourceGroup
+
+// 2. Detect New Virtual Machine Created in Unusual Region
+AzureActivity
+| where OperationNameValue == "Microsoft.Compute/virtualMachines/write"
+| where ActivityStatusValue == "Succeeded"
+| where Location !in ("eastus", "westus") // Define your standard regions
+| project TimeGenerated, Caller, Location, ResourceGroup
+
+// 3. Detect Entra ID (Azure AD) Brute Force Success
+SigninLogs
+| where ResultType == "0" // Success
+| summarize count() by UserPrincipalName, IPAddress
+| where count() > 10
+| project UserPrincipalName, IPAddress, count_

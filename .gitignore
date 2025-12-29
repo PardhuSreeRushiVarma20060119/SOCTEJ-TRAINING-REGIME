@@ -1,0 +1,15 @@
+# MITRE Large Datasets (Excluded)
+cti/
+attack-website/
+mitreattack-python/
+attack-data-model/
+
+# System Files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Temporary Files
+*.tmp
+*.log
+~$*

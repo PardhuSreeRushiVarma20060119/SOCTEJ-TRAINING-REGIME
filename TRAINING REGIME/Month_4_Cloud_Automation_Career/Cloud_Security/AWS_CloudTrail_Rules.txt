@@ -1,0 +1,34 @@
+# AWS CloudTrail Detection Queries (Athena/SIEM)
+
+# 1. Detect S3 Bucket Public Access Changes
+SELECT
+    eventTime,
+    eventSource,
+    eventName,
+    requestParameters['bucketName'] as bucketName,
+    userIdentity.arn as user_arn
+FROM cloudtrail_logs
+WHERE eventName IN ('PutBucketPublicAccessBlock', 'PutBucketPolicy', 'PutBucketAcl')
+AND (
+    requestParameters['publicAccessBlockConfiguration'] LIKE '%false%'
+    OR requestParameters['policy'] LIKE '%"Principal":"*"%'
+)
+
+# 2. Detect IAM Console Login without MFA
+SELECT
+    eventTime,
+    userIdentity.userName,
+    sourceIpAddress,
+    additionalEventData['MFAUsed'] as mfa_status
+FROM cloudtrail_logs
+WHERE eventName = 'ConsoleLogin'
+AND additionalEventData['MFAUsed'] = 'No'
+
+# 3. Detect Creation of Access Keys by Non-Admin
+SELECT
+    eventTime,
+    userIdentity.userName as creator,
+    requestParameters['userName'] as created_for
+FROM cloudtrail_logs
+WHERE eventName = 'CreateAccessKey'
+AND userIdentity.userName NOT LIKE '%admin%'
