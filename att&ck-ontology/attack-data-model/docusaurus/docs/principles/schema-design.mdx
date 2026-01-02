@@ -1,0 +1,64 @@
+import WorkInProgressNotice from '@site/src/components/WorkInProgressNotice';
+import AttackStixArchitecture from '@site/src/components/AttackStixArchitecture';
+
+# Schema Design Principles
+
+<WorkInProgressNotice />
+
+The schema layer is the foundation that enables runtime validation in the ATT&CK Data Model.
+The design of these schemas reflects careful consideration of competing concerns:
+STIX compliance, ATT&CK domain rules, and TypeScript integration.
+This page explores the principles of our schema design decisions.
+
+## Core Design Philosophy
+
+Rather than maintaining separate documentation about data format requirements, the schemas encode these requirements directly.
+This ensures that documentation stays synchronized with implementation and provides immediate feedback when requirements change.
+
+This approach means that anyone using the schemas we provide automatically has access to ATT&CK requirements through validation feedback,
+rather than needing to consult separate documentation.
+
+## Schema Stack
+
+ATT&CK schemas reflect the nature of STIX + ATT&CK requirements.
+This enables them to be built on a solid foundation while supporting interesting use cases on top of it.
+
+This diagram reflects how higher-level consumers rely on TypeScript types and the schema layer,
+which itself composes ATT&CK-specific rules on top of the STIX core.
+
+```text
+┌───────────────────────────────────────────────────────────────┐
+│ Application / Consumers                                       │
+│  - UI and validation                                          │
+│  - e.g. ATT&CK Workbench, ATT&CK Navigator                    │
+└───────────────────────────────────────────────────────────────┘
+                            ↑
+┌───────────────────────────────────────────────────────────────┐
+│ TypeScript Types & Runtime APIs                               │
+│  - static types, helpers, IDE integration                     │
+└───────────────────────────────────────────────────────────────┘
+                            ↑
+┌───────────────────────────────────────────────────────────────┐
+│ Schema Layer (zod)                                            │
+│  - ATT&CK Spec as code                                        │
+└───────────────────────────────────────────────────────────────┘
+                            ↑
+┌───────────────────────────────────────────────────────────────┐
+│ ATT&CK Specific Requirements                                  │
+│  - x_mitre_* properties, ATT&CK-specific objects              │
+└───────────────────────────────────────────────────────────────┘
+                            ↑
+┌───────────────────────────────────────────────────────────────┐
+│ STIX Core Requirements                                        │
+│  - id, type, spec_version, created, modified, etc.            │
+│  - solid foundation to build on                               │
+└───────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## ATT&CK STIX Architecture
+
+The following interactive diagram shows how different ATT&CK STIX object types relate to each other. Hover over or click any node to explore its connections.
+
+<AttackStixArchitecture />

@@ -1,0 +1,62 @@
+import { z } from 'zod/v4';
+import { attackBaseDomainObjectSchema } from '../common/index.js';
+import {
+  createStixIdValidator,
+  createStixTypeValidator,
+  descriptionSchema,
+  xMitreDomainsSchema,
+  xMitreModifiedByRefSchema,
+} from '../common/property-schemas/index.js';
+
+//==============================================================================
+//
+// Tactic Refs
+// (tactic_refs)
+//
+//==============================================================================
+
+export const xMitreTacticRefsSchema = z
+  .array(createStixIdValidator('x-mitre-tactic'))
+  .min(1, { error: 'At least one tactic ref is required' })
+  .meta({
+    description:
+      'An ordered list of `x-mitre-tactic` STIX IDs corresponding to the tactics of the matrix. The order determines the appearance within the matrix.',
+  });
+
+export type XMitreTacticRefs = z.infer<typeof xMitreTacticRefsSchema>;
+
+//==============================================================================
+//
+// MITRE Matrix
+//
+//==============================================================================
+
+export const matrixSchema = attackBaseDomainObjectSchema
+  .extend({
+    id: createStixIdValidator('x-mitre-matrix'),
+
+    type: createStixTypeValidator('x-mitre-matrix'),
+
+    description: descriptionSchema,
+
+    x_mitre_domains: xMitreDomainsSchema,
+
+    x_mitre_modified_by_ref: xMitreModifiedByRefSchema,
+
+    tactic_refs: xMitreTacticRefsSchema,
+  })
+  .required({
+    created_by_ref: true, // Optional in STIX but required in ATT&CK
+    external_references: true, // Optional in STIX but required in ATT&CK
+    object_marking_refs: true, // Optional in STIX but required in ATT&CK
+  })
+  .strict()
+  .meta({
+    description: `
+ATT&CK matrices define the structural layout and organization of tactics within each domain.
+Matrix data is stored in \`x-mitre-matrix\` objects, which are custom STIX types that extend the generic
+[STIX Domain Object pattern](https://docs.oasis-open.org/cti/stix/v2.0/csprd01/part2-stix-objects/stix-v2.0-csprd01-part2-stix-objects.html#_Toc476230920).
+    `.trim(),
+  });
+
+export type Matrix = z.infer<typeof matrixSchema>;

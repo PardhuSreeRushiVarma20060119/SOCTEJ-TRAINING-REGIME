@@ -1,6 +1,5 @@
 # MITRE Large Datasets (Excluded)
 attack-website/
-attack-data-model/
 
 # System Files
 Thumbs.db
