@@ -27,6 +27,7 @@ The training is built on a **"Dual-Framework"** philosophy:
 | **[`SOC-Automation-Lab/`](SOC-Automation-Lab/)** | **Python & SOAR.** Automation scripts, API integrations (VirusTotal/AbuseIPDB), and containment tools. |
 | **[`DFIR-LABS/`](DFIR-LABS/)** | **Forensic Scenarios.** Evidence files (memory dumps, PCAPs) for deep-dive investigation labs. |
 | **[`d3fend-ontology/`](d3fend-ontology/)** | **The Defensive Matrix.** Raw D3FEND ontology files and the custom Python correlation engine. |
+| **[`att&ck-ontology/`](att&ck-ontology/)** | **MITRE ATT&CK Framework.** Raw MITRE ATT&CK ontology files and the custom Python correlation engine. |
 
 ---
 
