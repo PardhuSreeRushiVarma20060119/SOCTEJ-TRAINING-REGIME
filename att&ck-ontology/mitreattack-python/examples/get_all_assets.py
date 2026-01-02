@@ -1,0 +1,16 @@
+import os
+
+from mitreattack.stix20 import MitreAttackData
+
+
+def main():
+    stix_filepath = os.environ.get("STIX_BUNDLE", "ics-attack.json")
+    mitre_attack_data = MitreAttackData(stix_filepath=stix_filepath)
+
+    assets = mitre_attack_data.get_assets(remove_revoked_deprecated=True)
+
+    print(f"Retrieved {len(assets)} ICS assets.")
+
+
+if __name__ == "__main__":
+    main()

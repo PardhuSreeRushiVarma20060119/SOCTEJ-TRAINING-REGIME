@@ -1,7 +1,5 @@
 # MITRE Large Datasets (Excluded)
-cti/
 attack-website/
-mitreattack-python/
 attack-data-model/
 
 # System Files
@@ -13,3 +11,18 @@ Desktop.ini
 *.tmp
 *.log
 ~$*
+
+# IDE
+.idea
+.vscode
+
+# Python
+__pycache__
+*.pyc
+
+# Node.js
+node_modules
+yarn.lock
+package-lock.json
+
+#github
