@@ -5,7 +5,8 @@
 *.js.map
 
 #github
-.git
+.gitignore
+
 # Test logs
 .test-logs/**/*
 
